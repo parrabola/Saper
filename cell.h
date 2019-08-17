@@ -13,6 +13,7 @@ public:
     void open();
     void incNeighbours();
     void paintEvent(QPaintEvent*);
+    void mark();
 signals:
     void miss();
     void zeroOpened(int x, int y);

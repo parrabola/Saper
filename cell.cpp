@@ -31,6 +31,7 @@ void Cell::open()
     if(mined)
     {
         emit miss();
+        repaint();
         return;
     }
     if (neighbours == 0)
@@ -48,14 +49,32 @@ void Cell::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
     p.setPen(QPen(Qt::black, 1));
-    p.setBrush(QBrush(Qt::gray));
+    p.setBrush(QBrush(marked ? Qt::red : Qt::gray));
     if (opened)
     {
-        p.drawText(QPoint(0, 0), QString::number(neighbours));
+        QMap<int, QColor> colors;
+        colors.insert(0, Qt::transparent);
+        colors.insert(1, Qt::blue);
+        colors.insert(2, Qt::red);
+        colors.insert(3, Qt::green);
+        colors.insert(4, Qt::yellow);
+        colors.insert(5, Qt::darkMagenta);
+        colors.insert(6, Qt::lightGray);
+        colors.insert(7, Qt::magenta);
+        colors.insert(8, Qt::darkCyan);
+        p.setPen(QPen(colors[neighbours], 2));
+        p.setFont(QFont("Tahoma", width() * 0.7, QFont::Bold));
+        p.drawText(rect(), Qt::AlignCenter, mined ? "X" : QString::number(neighbours));
     }
     else
     {
         p.drawRect(rect());
     }
     p.end();
+}
+
+void Cell::mark()
+{
+    marked = !marked;
+    repaint();
 }

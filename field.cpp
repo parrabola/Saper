@@ -87,6 +87,7 @@ void Field::mouseReleaseEvent(QMouseEvent *event)
         cells[column][row]->open();
         break;
     case Qt::RightButton:
+        cells[column][row]->mark();
         break;
     case Qt::MiddleButton:
         break;
