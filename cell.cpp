@@ -23,21 +23,22 @@ void Cell::setMine()
     repaint();
 }
 
-void Cell::open()
+bool Cell::open()
 {
-    if (marked) return;
-    if (opened) return;
+    if (marked) return false;
+    if (opened) return false;
     opened = true;
     if(mined)
     {
         emit miss();
         repaint();
-        return;
+        return false;
     }
     if (neighbours == 0)
         emit zeroOpened(column, row);
 
     repaint();
+    return true;
 }
 
 void Cell::incNeighbours()

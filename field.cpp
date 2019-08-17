@@ -9,7 +9,8 @@ Field::Field(int w, int h, int m, QWidget *parent) :
     m_width(w),
     m_height(h),
     m_mineCount(m),
-    generated(false)
+    generated(false),
+    opened(0)
 {
     for (int x = 0; x < w; ++x)
     {
@@ -82,9 +83,15 @@ void Field::mouseReleaseEvent(QMouseEvent *event)
         {
             placeMines(column, row);
             cells[column][row]->open();
+            ++opened;
+            checkWin();
             return;
         }
-        cells[column][row]->open();
+        if (cells[column][row]->open())
+        {
+            ++opened;
+            checkWin();
+        }
         break;
     case Qt::RightButton:
         cells[column][row]->mark();
@@ -103,11 +110,20 @@ void Field::lose()
 
 void Field::openNeighbours(int x, int y)
 {
-    for (int col = qMax(x-1, 0); col <= qMin(x+1, m_width -1); ++col)
+    for (int column = qMax(x-1, 0); column <= qMin(x+1, m_width -1); ++column)
     {
-        for (int rw = qMax(y-1, 0); rw <= qMin(y+1, m_height -1); ++rw)
+        for (int row = qMax(y-1, 0); row <= qMin(y+1, m_height -1); ++row)
         {
-            cells[col][rw]->open();
+            if (cells[column][row]->open()) ++opened;
+            checkWin();
         }
+    }
+}
+
+void Field::checkWin()
+{
+    if (opened == m_width*m_height - m_mineCount)
+    {
+        emit win();
     }
 }

@@ -10,7 +10,7 @@ public:
     explicit Cell(int column, int row, QWidget *parent = nullptr);
     bool isMine();
     void setMine();
-    void open();
+    bool open();
     void incNeighbours();
     void paintEvent(QPaintEvent*);
     void mark();

@@ -18,6 +18,7 @@ private slots:
     void openNeighbours(int x, int y);
 signals:
     void miss();
+    void win();
 private:
     QVector<QVector<Cell*> > cells;
     QList<bool> m_mines;
@@ -26,6 +27,8 @@ private:
     int m_height;
     int m_mineCount;
     bool generated;
+    int opened;
+    void checkWin();
 };
 
 #endif // FIELD_H

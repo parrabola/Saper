@@ -15,9 +15,11 @@ public:
 
 private:
     Field *f;
+    void startNew();
 
 private slots:
     void lose();
+    void win();
 };
 
 #endif // MAINWINDOW_H
