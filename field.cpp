@@ -58,7 +58,6 @@ void Field::placeMines(int column, int row)
         Cell* cell = cells[c][r];
         if (cell->isMine()) continue;
         cell->setMine();
-        qDebug() << "Mine placed at" << c << r;
         ++placed;
         for (int col = qMax(c-1, 0); col <= qMin(c+1, m_width -1); ++col)
         {
@@ -77,7 +76,6 @@ void Field::mouseReleaseEvent(QMouseEvent *event)
     int column = event->x()/cS;
     int row = event->y()/cS;
     if (row >= m_height || column >= m_width) return;
-    qDebug() << column << row;
     switch (event->button()) {
     case Qt::LeftButton:
         if (!generated)

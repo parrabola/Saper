@@ -25,7 +25,6 @@ void Cell::setMine()
 
 void Cell::open()
 {
-    qDebug() << "111" << column << row;
     if (marked) return;
     if (opened) return;
     opened = true;
@@ -38,7 +37,6 @@ void Cell::open()
         emit zeroOpened(column, row);
 
     repaint();
-    qDebug() << "Opened cell" << column << row;
 }
 
 void Cell::incNeighbours()
@@ -50,7 +48,7 @@ void Cell::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
     p.setPen(QPen(Qt::black, 1));
-    p.setBrush(QBrush(mined ? Qt::red : Qt::gray));
+    p.setBrush(QBrush(Qt::gray));
     if (opened)
     {
         p.drawText(QPoint(0, 0), QString::number(neighbours));
