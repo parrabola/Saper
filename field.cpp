@@ -97,6 +97,21 @@ void Field::mouseReleaseEvent(QMouseEvent *event)
         cells[column][row]->mark();
         break;
     case Qt::MiddleButton:
+        if (cells[column][row]->opened())
+        {
+            int marked = 0;
+            for (int c = qMax(column-1, 0); c <= qMin(column+1, m_width -1); ++c)
+            {
+                for (int r = qMax(row-1, 0); r <= qMin(row+1, m_height -1); ++r)
+                {
+                    if (cells[c][r]->marked()) ++marked;
+                }
+            }
+            if (cells[column][row]->neighbours() == marked)
+            {
+                openNeighbours(column, row);
+            }
+        }
         break;
     default:
         break;

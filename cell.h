@@ -11,9 +11,12 @@ public:
     bool isMine();
     void setMine();
     bool open();
+    bool opened();
+    bool marked();
     void incNeighbours();
     void paintEvent(QPaintEvent*);
     void mark();
+    int neighbours();
 signals:
     void miss();
     void zeroOpened(int x, int y);
@@ -22,10 +25,10 @@ public slots:
 private:
     int row;
     int column;
-    bool marked;
-    bool opened;
+    bool m_marked;
+    bool m_opened;
     bool mined;
-    int neighbours;
+    int m_neighbours;
 };
 
 #endif // CELL_H
